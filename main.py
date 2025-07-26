@@ -3,7 +3,6 @@ import aiohttp
 import logging
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from mega import Mega
 from utils import readable_size, is_video_file, bypass_link
 from dotenv import load_dotenv
 
@@ -26,7 +25,7 @@ async def start(client: Client, message: Message):
     await message.reply_text(
         f"👋 Hello {message.from_user.first_name}!\n"
         f"I'm ZoroverseX Advanced Uploader Bot with 🔓Bypass support.\n"
-        f"Send me any direct, MEGA.nz, or shortened movie links. I’ll do the rest!",
+        f"Send me any direct or shortened movie links. I’ll do the rest!",
         quote=True
     )
 
@@ -39,9 +38,6 @@ async def handle_link(client: Client, message: Message):
     msg = await message.reply("⏳ Processing your link...")
 
     try:
-        if "mega.nz" in url:
-            return await handle_mega(client, message, url, msg)
-
         bypassed_url = await bypass_link(url)
         final_url = bypassed_url if bypassed_url else url
 
@@ -50,20 +46,6 @@ async def handle_link(client: Client, message: Message):
     except Exception as e:
         logger.error(e)
         await msg.edit("❌ Error occurred while processing the link.")
-
-async def handle_mega(client, message, url, msg):
-    await msg.edit("📥 Downloading from MEGA...")
-    try:
-        mega = Mega()
-        m = mega.login()
-        file = m.download_url(url)
-        filename = file.name
-        if os.path.getsize(filename) > MAX_FILE_SIZE:
-            return await msg.edit("⚠️ File too large.")
-        await upload(client, message, filename, msg)
-    except Exception as e:
-        logger.error(e)
-        await msg.edit("❌ MEGA download failed.")
 
 async def handle_direct(client, message, url, msg):
     await msg.edit("📥 Downloading file...")
