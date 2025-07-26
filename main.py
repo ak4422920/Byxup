@@ -24,10 +24,14 @@ bot = Client("ZoroverseXBypassBot", api_id=API_ID, api_hash=API_HASH, bot_token=
 @bot.on_message(filters.command("start") & filters.private)
 async def start(client: Client, message: Message):
     await message.reply_text(
-        f"👋 Hello {message.from_user.first_name}!
-"
-        f"I'm ZoroverseX Advanced Uploader Bot with 🔓Bypass support.
-"
+@bot.on_message(filters.command("start") & filters.private)
+async def start(client: Client, message: Message):
+    await message.reply_text(
+        f"👋 Hello {message.from_user.first_name}!\n"
+        f"I'm ZoroverseX Advanced Uploader Bot with 🔓Bypass support.\n"
+        f"Send me any direct, MEGA.nz, or shortened movie links. I’ll do the rest!",
+        quote=True
+    )
         f"Send me any direct, MEGA.nz, or shortened movie links. I’ll do the rest!",
         quote=True
     )
