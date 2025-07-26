@@ -32,10 +32,6 @@ async def start(client: Client, message: Message):
         f"Send me any direct, MEGA.nz, or shortened movie links. I’ll do the rest!",
         quote=True
     )
-        f"Send me any direct, MEGA.nz, or shortened movie links. I’ll do the rest!",
-        quote=True
-    )
-
 @bot.on_message(filters.text & filters.private & (~filters.command([])))
 async def handle_link(client: Client, message: Message):
     url = message.text.strip()
