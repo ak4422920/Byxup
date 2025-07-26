@@ -1,0 +1,6 @@
+BOT_TOKEN=your_bot_token
+API_ID=your_api_id
+API_HASH=your_api_hash
+OWNER_ID=your_user_id
+LOG_CHANNEL=-100xxxxxxxxxx
+MAX_FILE_SIZE=2097152000
